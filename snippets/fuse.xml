@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
 
-  <remote  name="PixelOS"
-           fetch="https://github.com/PixelOS-Fourteen"
-           revision="refs/heads/fourteen-qpr1" />
+  <!-- Github -->
+  <remote  name="github"
+           fetch="https://github.com/" />
 
-  <remote  name="fos"
+  <!-- GitHub (Project-Awaken) -->
+  <remote  name="awaken"
+           fetch="https://github.com/Project-Awaken/"
+           revision="ursa" />
+
+  <!-- Gitea (Project-Awaken) -->
+  <remote  name="awaken-gitea"
+           fetch="https://gitea.com/Project-Awaken/"
+           revision="ursa" />
+
+  <remote  name="fuse"
+           fetch="https://gitea.com/fos-pb/"
+           revision="fourteen-qpr1" />
+
+  <remote  name="fuse1"
            fetch="https://github.com/Fusion-OS"
-           revision="refs/heads/fourteen" />
+           revision="fourteen" />
 
-  <remote  name="fos-pb"
-           fetch="https://github.com/fos-pb"
-           revision="refs/heads/fourteen-qpr1" />
-
-  <remote  name="PixelOS-Gitlab"
-           fetch="https://gitlab.com/PixelOS-AOSP"
-           revision="refs/heads/fourteen" />
+  <!--ART-->
+  <project path="art" name="android_art" groups="pdk" remote="awaken" />
 
   <!-- Rootdir -->
-  <project path="art" name="art" groups="pdk" remote="PixelOS" />
-  <project path="bionic" name="bionic" groups="pdk" remote="fos-pb" />
-  <project path="libcore" name="android_libcore" groups="pdk" remote="PixelOS" />
+  <project path="bionic" name="bionic" groups="pdk" remote="fuse" />
 
   <!-- Bootable -->
-  <project path="bootable/recovery" name="bootable_recovery" groups="pdk" remote="fos-pb" />
+  <project path="bootable/recovery" name="bootable_recovery" groups="pdk" remote="fuse" />
 
   <!-- Build -->
-  <project path="build/bazel" name="build_bazel" remote="PixelOS" >
-    <linkfile src="bazel.WORKSPACE" dest="WORKSPACE" />
-    <linkfile src="bazel.BUILD" dest="BUILD" />
-  </project>
-  <project path="build/make" name="build" groups="pdk" remote="fos-pb">
+  <project path="build/make" name="build" groups="pdk" remote="fuse" >
     <copyfile src="core/root.mk" dest="Makefile" />
     <linkfile src="CleanSpec.mk" dest="build/CleanSpec.mk" />
     <linkfile src="buildspec.mk.default" dest="build/buildspec.mk.default" />
@@ -39,67 +42,83 @@
     <linkfile src="target" dest="build/target" />
     <linkfile src="tools" dest="build/tools" />
   </project>
-  <project path="build/soong" name="build_soong" groups="pdk,tradefed" remote="fos-pb">
+  <project path="build/soong" name="build_soong" groups="pdk,tradefed" remote="fuse" >
     <linkfile src="root.bp" dest="Android.bp" />
     <linkfile src="bootstrap.bash" dest="bootstrap.bash" />
   </project>
 
-  <!-- External -->
-  <project path="external/arm-optimized-routines" name="external_arm-optimized-routines" groups="pdk" remote="PixelOS" />
-  <project path="external/boringssl" name="external_boringssl" groups="pdk" remote="PixelOS" />
-  <project path="external/jemalloc_new" name="external_jemalloc_new" groups="pdk" remote="PixelOS" />
-  <project path="external/libcxx" name="android_external_libcxx" groups="pdk" remote="PixelOS" />
-  <project path="external/perfetto" name="external_perfetto" groups="pdk" remote="PixelOS" />
-  <project path="external/rust/crates/ring" name="external_rust_crates_ring" groups="pdk" remote="PixelOS" />
-  <project path="external/skia" name="external_skia" groups="pdk" remote="PixelOS" />
-  <project path="external/sqlite" name="external_sqlite" groups="pdk" remote="PixelOS" />
-  <project path="external/zlib" name="external_zlib-ng" groups="pdk" remote="PixelOS" />
+  <!-- Device -->
+  <project path="device/lineage/sepolicy" name="android_device_lineage_sepolicy" remote="LineageOS" />
+  <project path="device/qcom/sepolicy-legacy-um" name="android_device_qcom_sepolicy" groups="qcom,sdm660" revision="ursa-legacy-um" remote="awaken" />
 
   <!-- Frameworks -->
-  <project path="frameworks/av" name="frameworks_av" groups="pdk" remote="PixelOS" />
-  <project path="frameworks/base" name="frameworks_base" groups="pdk-cw-fs,pdk-fs" remote="fos" />
-  <project path="frameworks/native" name="frameworks_native" groups="pdk" remote="fos" />
+  <!-- <project path="frameworks/av" name="android_frameworks_av" groups="pdk" remote="awaken" /> -->
+  <project path="frameworks/base" name="frameworks_base" groups="pdk-cw-fs,pdk-fs" remote="fuse1" />
+  <project path="frameworks/native" name="frameworks_native" groups="pdk-cw-fs,pdk-fs" remote="fuse1" />
+  <project path="frameworks/opt/telephony" name="frameworks_opt_telephony" groups="pdk" remote="fuse1" />
 
   <!-- Hardware -->
-  <project path="hardware/google/pixel-sepolicy" name="hardware_google_pixel-sepolicy" groups="generic_fs,pixel" remote="PixelOS" />
-  <project path="hardware/interfaces" name="hardware_interfaces" groups="pdk" remote="PixelOS" />
+  <project path="hardware/google/pixel" name="android_hardware_google_pixel" remote="awaken" />
+  <project path="hardware/qcom-caf/common" name="android_hardware_qcom-caf_common" groups="qcom" remote="awaken" >
+    <!-- Add guard for AOSP hardware/qcom dir -->
+    <linkfile src="os_pickup_aosp.mk" dest="hardware/qcom/Android.mk" />
+    <!-- Add guards for CAF repositories -->
+    <linkfile src="os_pickup_sepolicy_vndr.mk" dest="device/qcom/sepolicy_vndr/SEPolicy.mk" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8916/Android.mk" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8952/Android.mk" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8960/Android.mk" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8974/Android.mk" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8994/Android.mk" />
+    <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/msm8953/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8953/Android.mk" />
+    <linkfile src="os_pickup.bp" dest="hardware/qcom-caf/msm8996/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8996/Android.mk" />
+    <linkfile src="os_pickup.bp" dest="hardware/qcom-caf/msm8998/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8998/Android.mk" />
+    <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sdm845/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/sdm845/Android.mk" />
+    <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm8150/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/sm8150/Android.mk" />
+    <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm8250/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/sm8250/Android.mk" />
+    <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm8350/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/sm8350/Android.mk" />
+    <linkfile src="os_pickup_audio-ar.mk" dest="hardware/qcom-caf/sm8450/audio/Android.mk" />
+    <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm8450/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/sm8450/Android.mk" />
+    <linkfile src="os_pickup_audio-ar.mk" dest="hardware/qcom-caf/sm8550/audio/Android.mk" />
+    <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm8550/Android.bp" />
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/sm8550/Android.mk" />
+  </project>
 
   <!-- Packages -->
-  <project path="packages/apps/Nfc" name="packages_apps_Nfc" groups="apps_nfc,pdk-fs" remote="PixelOS" />
-  <project path="packages/apps/Settings" name="packages_apps_Settings" groups="pdk-fs" remote="fos" />
-  <project path="packages/modules/Bluetooth" name="packages_modules_Bluetooth" groups="pdk" remote="fos" />
-  <project path="packages/modules/Virtualization" name="packages_modules_Virtualization" groups="pdk" remote="PixelOS" />
-  <project path="packages/services/Telecomm" name="packages_services_Telecomm" groups="pdk-cw-fs,pdk-fs" remote="PixelOS" />
+  <project path="packages/apps/AwakenWallpaperStub" name="android_packages_apps_AwakenWallpaperStub" remote="awaken" />
+  <project path="packages/apps/Nfc" name="android_packages_apps_Nfc" groups="apps_nfc,pdk-fs" remote="awaken" />
+  <project path="packages/apps/ParanoidSense" name="android_packages_apps_ParanoidSense" remote="awaken-gitea" />
+  <project path="packages/apps/Settings" name="packages_apps_Settings" groups="pdk-fs" remote="fuse1" />
+  <project path="packages/apps/SimpleDeviceConfig" name="android_packages_apps_SimpleDeviceConfig" remote="awaken" />
+  <project path="packages/apps/TouchGestures" name="android_packages_apps_TouchGestures" remote="awaken" />
+  <!-- <project path="packages/apps/Updater" name="android_packages_apps_Updater" remote="awaken" /> -->
+  <project path="packages/modules/Bluetooth" name="packages_modules_Bluetooth" groups="pdk" remote="fuse1" />
+  <project path="packages/modules/Bluetooth/android/BtHelper" name="android_packages_modules_Bluetooth_android_BtHelper" remote="awaken" />
+  <project path="packages/modules/Connectivity" name="android_packages_modules_Connectivity" groups="pdk" remote="awaken-gitea" />
+  <project path="packages/modules/Permission" name="android_packages_modules_Permission" groups="pdk-cw-fs,pdk-fs" remote="awaken" />
+  <project path="packages/modules/Wifi" name="packages_modules_Wifi" groups="pdk-cw-fs,pdk-fs" remote="fuse1" />
+  <project path="packages/providers/DownloadProvider" name="android_packages_providers_DownloadProvider" groups="pdk-cw-fs,pdk-fs" remote="awaken" />
+  <project path="packages/services/Telecomm" name="android_packages_services_Telecomm" groups="pdk-cw-fs,pdk-fs" remote="awaken" />
 
   <!-- System -->
-  <project path="system/core" name="system_core" groups="pdk" remote="fos-pb" />
-  <project path="system/hardware/interfaces" name="system_hardware_interfaces" groups="pdk" remote="PixelOS" />
-  <project path="system/linkerconfig" name="system_linkerconfig" groups="pdk" remote="PixelOS" />
-  <project path="system/memory/lmkd" name="system_memory_lmkd" groups="pdk" remote="PixelOS" />
-  <project path="system/sepolicy" name="system_sepolicy" groups="pdk" remote="fos-pb" />
-  <project path="system/server_configurable_flags" name="system_server_configurable_flags" remote="PixelOS" />
-  <project path="system/update_engine" name="system_update_engine" groups="pdk" remote="fos-pb" />
-
-  <!-- Toolchain -->
-  <project path="toolchain/pgo-profiles" name="toolchain_pgo-profiles" groups="pdk" remote="PixelOS" />
-
-  <!-- Begin Extras -->
-
-  <!-- Device -->
-  <!-- <project path="device/lineage/sepolicy" name="device_lineage_sepolicy" remote="PixelOS" /> -->
-  <project path="device/fuse/sepolicy" name="device_fuse_sepolicy" remote="fos" />
-  <project path="device/mediatek/sepolicy_vndr" name="device_mediatek_sepolicy_vndr" remote="PixelOS" />
-
-  <!-- Hardware -->
-  <project path="hardware/lineage/interfaces" name="hardware_lineage_interfaces" remote="PixelOS" />
-  <project path="hardware/qcom-caf/sm8450/display" name="hardware_qcom_sm8450_display" groups="qcom" remote="PixelOS" />
-
-  <!-- Packages -->
-  <project path="packages/apps/TouchGestures" name="packages_apps_TouchGestures" remote="PixelOS" />
-  <!-- <project path="packages/apps/Updates" name="packages_apps_Updates" remote="PixelOS" /> -->
+  <project path="system/core" name="system_core" groups="pdk" remote="fuse" />
+  <project path="system/sepolicy" name="system_sepolicy" groups="pdk" remote="fuse" />
+  <project path="system/update_engine" name="system_update_engine" groups="pdk" remote="fuse" />
 
   <!-- Vendor -->
-  <project path="vendor/fuse" name="vendor_fuse" remote="fos" />
-  <!-- <project path="vendor/custom-preference" name="vendor_custom-preference" remote="PixelOS" /> -->
-  <!-- <project path="vendor/gms" name="vendor_gms" clone-depth="1" remote="PixelOS-Gitlab" /> -->
+  <project path="vendor/fuse" name="vendor_fuse" remote="fuse1" />
+  <!-- <project path="vendor/awaken/certification" name="android_vendor_awaken_certification" remote="awaken-gitea" /> -->
+  <!-- <project path="vendor/gms" name="android_vendor_gms" remote="awaken-gitea" clone-depth="1" /> -->
+
+  <!-- ProtonAosp -->
+  <!-- <project path="packages/apps/RepainterServicePriv" name="kdrag0n/android_packages_apps_RepainterServicePriv" groups="pdk" revision="main" remote="github" /> -->
 </manifest>
+
+<!-- av, -->

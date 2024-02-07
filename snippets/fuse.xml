@@ -23,9 +23,6 @@
            fetch="https://github.com/Fusion-OS"
            revision="fourteen" />
 
-  <!--ART-->
-  <project path="art" name="android_art" groups="pdk" remote="awaken" />
-
   <!-- Rootdir -->
   <project path="bionic" name="bionic" groups="pdk" remote="fuse" />
 
@@ -47,10 +44,6 @@
     <linkfile src="bootstrap.bash" dest="bootstrap.bash" />
   </project>
 
-  <!-- Device -->
-  <project path="device/lineage/sepolicy" name="android_device_lineage_sepolicy" remote="LineageOS" />
-  <project path="device/qcom/sepolicy-legacy-um" name="android_device_qcom_sepolicy" groups="qcom,sdm660" revision="ursa-legacy-um" remote="awaken" />
-
   <!-- Frameworks -->
   <!-- <project path="frameworks/av" name="android_frameworks_av" groups="pdk" remote="awaken" /> -->
   <project path="frameworks/base" name="frameworks_base" groups="pdk-cw-fs,pdk-fs" remote="fuse1" />
@@ -58,8 +51,8 @@
   <project path="frameworks/opt/telephony" name="frameworks_opt_telephony" groups="pdk" remote="fuse1" />
 
   <!-- Hardware -->
-  <project path="hardware/google/pixel" name="android_hardware_google_pixel" remote="awaken" />
-  <project path="hardware/qcom-caf/common" name="android_hardware_qcom-caf_common" groups="qcom" remote="awaken" >
+  <project path="hardware/google/pixel" name="android_hardware_google_pixel" remote="LineageOS" />
+  <project path="hardware/qcom-caf/common" name="android_hardware_qcom-caf_common" groups="qcom" remote="LineageOS" >
     <!-- Add guard for AOSP hardware/qcom dir -->
     <linkfile src="os_pickup_aosp.mk" dest="hardware/qcom/Android.mk" />
     <!-- Add guards for CAF repositories -->
@@ -98,7 +91,6 @@
   <project path="packages/apps/Settings" name="packages_apps_Settings" groups="pdk-fs" remote="fuse1" />
   <project path="packages/apps/SimpleDeviceConfig" name="android_packages_apps_SimpleDeviceConfig" remote="awaken" />
   <project path="packages/apps/TouchGestures" name="android_packages_apps_TouchGestures" remote="awaken" />
-  <!-- <project path="packages/apps/Updater" name="android_packages_apps_Updater" remote="awaken" /> -->
   <project path="packages/modules/Bluetooth" name="packages_modules_Bluetooth" groups="pdk" remote="fuse1" />
   <project path="packages/modules/Bluetooth/android/BtHelper" name="android_packages_modules_Bluetooth_android_BtHelper" remote="awaken" />
   <project path="packages/modules/Connectivity" name="android_packages_modules_Connectivity" groups="pdk" remote="awaken-gitea" />

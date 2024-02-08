@@ -19,8 +19,8 @@
   <project path="development" name="LineageOS/android_development" groups="developers,pdk-cw-fs,pdk-fs" remote="LineageOS" />
 
   <!-- Device -->
-  <project path="device/lineage/sepolicy" name="android_device_lineage_sepolicy" remote="PixelOS" />
-  <project path="device/qcom/sepolicy-legacy-um" name="android_device_qcom_sepolicy" groups="qcom,sdm660" revision="lineage-21.0-legacy-um" remote="LineageOS" />
+<!--   <project path="device/lineage/sepolicy" name="android_device_lineage_sepolicy" remote="PixelOS" /> -->
+  <project path="device/qcom/sepolicy-legacy-um" name="LineageOS/android_device_qcom_sepolicy" groups="qcom,sdm660" revision="lineage-21.0-legacy-um" remote="LineageOS" />
 
   <!-- External -->
   <project path="external/avb" name="LineageOS/android_external_avb" groups="pdk" remote="LineageOS" />

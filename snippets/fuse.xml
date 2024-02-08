@@ -16,12 +16,16 @@
            revision="ursa" />
 
   <remote  name="fuse"
-           fetch="https://gitea.com/fos-pb/"
+           fetch="https://github.com/fos-pb/"
            revision="fourteen-qpr1" />
 
   <remote  name="fuse1"
            fetch="https://github.com/Fusion-OS"
            revision="fourteen" />
+
+  <remote  name="LineageOS"
+           fetch="https://github.com/"
+           revision="lineage-21.0" />
 
   <!-- Rootdir -->
   <project path="bionic" name="bionic" groups="pdk" remote="fuse" />
@@ -51,8 +55,8 @@
   <project path="frameworks/opt/telephony" name="frameworks_opt_telephony" groups="pdk" remote="fuse1" />
 
   <!-- Hardware -->
-  <project path="hardware/google/pixel" name="android_hardware_google_pixel" remote="LineageOS" />
-  <project path="hardware/qcom-caf/common" name="android_hardware_qcom-caf_common" groups="qcom" remote="LineageOS" >
+  <project path="hardware/google/pixel" name="LineageOS/android_hardware_google_pixel" remote="LineageOS" />
+  <project path="hardware/qcom-caf/common" name="LineageOS/android_hardware_qcom-caf_common" groups="qcom" remote="LineageOS" >
     <!-- Add guard for AOSP hardware/qcom dir -->
     <linkfile src="os_pickup_aosp.mk" dest="hardware/qcom/Android.mk" />
     <!-- Add guards for CAF repositories -->
@@ -107,7 +111,7 @@
   <!-- Vendor -->
   <project path="vendor/fuse" name="vendor_fuse" remote="fuse1" />
   <!-- <project path="vendor/awaken/certification" name="android_vendor_awaken_certification" remote="awaken-gitea" /> -->
-  <!-- <project path="vendor/gms" name="android_vendor_gms" remote="awaken-gitea" clone-depth="1" /> -->
+  <project path="vendor/gms" name="android_vendor_gms" remote="awaken-gitea" clone-depth="1" />
 
   <!-- ProtonAosp -->
   <!-- <project path="packages/apps/RepainterServicePriv" name="kdrag0n/android_packages_apps_RepainterServicePriv" groups="pdk" revision="main" remote="github" /> -->

@@ -47,12 +47,11 @@
   <project path="hardware/google/pixel-sepolicy" name="hardware_google_pixel-sepolicy" groups="generic_fs,pixel" remote="PixelOS" />
 
   <!-- Packages -->
-  <project path="packages/apps/Nfc" name="packages_apps_Nfc" groups="apps_nfc,pdk-fs" remote="PixelOS" />
+  <project path="packages/apps/Nfc" name="packages_apps_Nfc" groups="apps_nfc,pdk-fs" remote="fos" />
   <project path="packages/apps/Settings" name="packages_apps_Settings" groups="pdk-fs" remote="ADD_REPO_HERE" />
-  <project path="packages/modules/Bluetooth" name="packages_modules_Bluetooth" groups="pdk" remote="PixelOS" />
-  <project path="packages/modules/Connectivity" name="packages_modules_Connectivity" groups="pdk" remote="PixelOS" />
-  <project path="packages/modules/StatsD" name="packages_modules_StatsD" remote="PixelOS" />
-  <project path="packages/services/Telecomm" name="packages_services_Telecomm" remote="PixelOS" />
+  <project path="packages/modules/Connectivity" name="packages_modules_Connectivity" groups="pdk" remote="fos" />
+  <project path="packages/modules/StatsD" name="packages_modules_StatsD" remote="fos" />
+  <project path="packages/services/Telecomm" name="packages_services_Telecomm" remote="fos" />
 
   <!-- System -->
   <project path="system/core" name="system_core" groups="pdk" remote="PixelOS" />

@@ -4,6 +4,14 @@
   <remote  name="fos"
            fetch="https://github.com/Fusionos-next"
            revision="refs/heads/14" />
+
+  <remote  name="fos-og"
+           fetch="https://github.com/fusion-os"
+           revision="refs/heads/fourteen" />
+
+  <remote  name="fos-pb"
+           fetch="https://github.com/fos-pb"
+           revision="refs/heads/fourteen" />
   
     <remote  name="PixelOS"
            fetch="https://github.com/pixelos-aosp"
@@ -40,7 +48,7 @@
 
   <!-- Frameworks -->
   <project path="frameworks/av" name="frameworks_av" groups="pdk" remote="fos" />
-  <project path="frameworks/base" name="frameworks_base" groups="pdk-cw-fs,pdk-fs" remote="ADD_REPO_HERE" />
+  <project path="frameworks/base" name="frameworks_base" groups="pdk-cw-fs,pdk-fs" remote="fos-pb" />
   <project path="frameworks/native" name="frameworks_native" groups="pdk" remote="fos" />
 
   <!-- Hardware -->
@@ -48,7 +56,7 @@
 
   <!-- Packages -->
   <project path="packages/apps/Nfc" name="packages_apps_Nfc" groups="apps_nfc,pdk-fs" remote="fos" />
-  <project path="packages/apps/Settings" name="packages_apps_Settings" groups="pdk-fs" remote="ADD_REPO_HERE" />
+  <project path="packages/apps/Settings" name="packages_apps_Settings" groups="pdk-fs" remote="fos-pb" />
   <project path="packages/modules/Connectivity" name="packages_modules_Connectivity" groups="pdk" remote="fos" />
   <project path="packages/modules/StatsD" name="packages_modules_StatsD" remote="fos" />
   <project path="packages/services/Telecomm" name="packages_services_Telecomm" remote="fos" />
@@ -72,7 +80,7 @@
   <!-- <project path="packages/apps/Updates" name="packages_apps_Updates" remote="PixelOS" /> -->
 
   <!-- Vendor -->
-  <project path="vendor/aosp" name="vendor_fuse" remote="ADD_REPO_HERE" />
+  <project path="vendor/fuse" name="vendor_fuse" remote="fos-og" />
   <project path="vendor/custom-preference" name="vendor_custom-preference" remote="PixelOS" />
   <project path="vendor/microsoft" name="vendor_microsoft" remote="PixelOS" />
   <project path="vendor/gms" name="vendor_gms" clone-depth="1" remote="PixelOS-Devices-Gitlab" />

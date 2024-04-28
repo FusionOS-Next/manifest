@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <remote  name="fuse"
+           fetch="https://github.com/FusionOS-Next"
+           revision="refs/heads/fourteen-qpr2" />
+
+  <!-- Rootdir -->
+  <project path="bionic" name="bionic" groups="pdk" remote="fuse" />
+
+  <!-- Bootable -->
+  <project path="bootable/recovery" name="bootable_recovery" groups="pdk" remote="fuse" />
+
+  <!-- Build -->
+  <project path="build/make" name="build" groups="pdk" remote="fuse">
+    <linkfile dest="build/CleanSpec.mk" src="CleanSpec.mk" />
+    <linkfile dest="build/buildspec.mk.default" src="buildspec.mk.default" />
+    <linkfile dest="build/core" src="core" />
+    <linkfile dest="build/envsetup.sh" src="envsetup.sh" />
+    <linkfile dest="build/target" src="target" />
+    <linkfile dest="build/tools" src="tools" />
+  </project>
+  <project path="build/soong" name="build_soong" groups="pdk,tradefed" remote="fuse">
+    <linkfile dest="Android.bp" src="root.bp" />
+    <linkfile dest="bootstrap.bash" src="bootstrap.bash" />
+  </project>
+
+  <!-- Frameworks -->
+  <project path="frameworks/av" name="frameworks_av" groups="pdk" remote="fuse" />
+  <project path="frameworks/base" name="frameworks_base" groups="pdk-cw-fs,pdk-fs" remote="fuse" />
+  <project path="frameworks/native" name="frameworks_native" groups="pdk" remote="fuse" />
+
+  <!-- Packages -->
+  <project path="packages/apps/Settings" name="packages_apps_Settings" groups="pdk-fs" remote="fuse" />
+  <project path="packages/services/Telecomm" name="packages_services_Telecomm" remote="fuse" />
+  <project path="packages/modules/Wifi" name="packages_modules_Wifi" remote="fuse" />
+  <project path="packages/modules/Permission" name="packages_modules_Permission" remote="fuse" />
+  <project path="packages/providers/DownloadProvider" name="packages_providers_DownloadProvider" remote="fuse" />
+
+  <!-- System -->
+  <project path="system/core" name="system_core" groups="pdk" remote="fuse" />
+  <project path="system/sepolicy" name="system_sepolicy" groups="pdk" remote="fuse" />
+
+  <!-- Vendor -->
+  <project path="vendor/fuse" name="vendor_fuse" remote="fuse" />
+
+</manifest>

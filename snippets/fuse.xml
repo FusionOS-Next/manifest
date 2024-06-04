@@ -32,7 +32,7 @@
   </project>
 
   <!-- Device -->
-  <project path="device/custom/sepolicy" name="device_custom_sepolicy" remote="fos" />
+  <project path="device/lineage/sepolicy" name="device_lineage_sepolicy" remote="fos" />
   <!-- <project path="device/qcom/sepolicy-legacy-um" name="device_qcom_sepolicy-legacy-um" groups="qcom,sdm660" remote="fos" /> -->
 
   <!-- Frameworks -->

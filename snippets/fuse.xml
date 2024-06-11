@@ -12,7 +12,7 @@
 
   <!-- Rootdir -->
   <project path="bionic" name="bionic" groups="pdk" remote="fos" />
-  <project path="manifest" name="manifest" remote="fos" />
+<!--   <project path="manifest" name="manifest" remote="fos" /> -->
 
   <!-- Bootable -->
   <project path="bootable/recovery" name="bootable_recovery" groups="pdk" remote="fos" />
